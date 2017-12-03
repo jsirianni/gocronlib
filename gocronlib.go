@@ -9,7 +9,7 @@ import (
 )
 
 
-const Version string  = "1.0.6"
+const Version string  = "1.0.7"
 
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
