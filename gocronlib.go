@@ -68,6 +68,7 @@ func DatabaseString(verbose bool) string {
 
 
 // Function handles database queries
+// Returns false if bad query
 func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       var db *sql.DB
       var err error
@@ -89,6 +90,7 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       }
 
       // Return query result and status
+      db.Close()
       return rows, status
 }
 
