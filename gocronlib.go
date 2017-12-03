@@ -1,13 +1,19 @@
 package gocronlib
 import (
       "os"
-
       "io/ioutil"
       "fmt"
       "os/exec"
       "gopkg.in/yaml.v2"
       "database/sql"; _ "github.com/lib/pq";
 )
+
+
+const Version string  = "1.0.1"
+
+const sslmode string  = "disable"   // Disable or enable ssl
+const syslog string   = "logger"    // Command to write to syslog
+const confPath string = "/etc/gocron/config.yml"
 
 
 type Config struct {
@@ -35,12 +41,6 @@ type Cron struct {
 }
 
 
-const Version string = "1.0.1"
-const sslmode string  = "disable"   // Disable or enable ssl
-const syslog string   = "logger"    // Command to write to syslog
-const confPath string = "/etc/gocron/config.yml"
-
-
 // Read in the config file
 func GetConfig(verbose bool) Config {
       var config Config
@@ -63,15 +63,8 @@ func GetConfig(verbose bool) Config {
 
 // Return a Postgres connection string
 func DatabaseString(verbose bool) string {
-      var config Config = GetConfig(verbose)
-      var connectionString string = "postgres://" +
-            config.Dbuser + ":" +
-            config.Dbpass + "@" +
-            config.Dbfqdn +
-            "/gocron" +
-            "?sslmode=" + sslmode
-
-      return connectionString
+      var c Config = GetConfig(verbose)
+      return "postgres://" + c.Dbuser + ":" + c.Dbpass + "@" + c.Dbfqdn + "/gocron" + "?sslmode=" + sslmode
 }
 
 
