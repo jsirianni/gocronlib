@@ -75,16 +75,14 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       var err error
       var status bool
 
-      // close all database connections on return / failure
-      defer db.Close()
-      defer rows.Close()
-
       db, err = sql.Open("postgres", DatabaseString(verbose))
+      defer db.Close()
       if err != nil {
             CheckError(err, verbose)
       }
 
       rows, err = db.Query(query)
+      defer rows.Close()
       if err != nil {
             CheckError(err, verbose)
             status = false
