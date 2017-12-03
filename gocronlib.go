@@ -9,7 +9,7 @@ import (
 )
 
 
-const Version string  = "1.0.3"
+const Version string  = "1.0.7"
 
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
@@ -71,9 +71,9 @@ func DatabaseString(verbose bool) string {
 // Returns false if bad query
 func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       var db *sql.DB
+      var rows *sql.Rows
       var err error
       var status bool
-      var rows *sql.Rows
 
       db, err = sql.Open("postgres", DatabaseString(verbose))
       defer db.Close()
@@ -90,7 +90,6 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       }
 
       // Return query result and status
-      db.Close()
       return rows, status
 }
 
