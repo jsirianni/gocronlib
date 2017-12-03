@@ -9,7 +9,7 @@ import (
 )
 
 
-const Version string  = "1.0.4"
+const Version string  = "1.0.5"
 
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
@@ -91,7 +91,6 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       }
 
       // Return query result and status
-      db.Close()
       return rows, status
 }
 
