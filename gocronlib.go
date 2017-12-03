@@ -20,6 +20,7 @@ type Config struct {
       Smtpport     string
       Smtpaddress  string
       Smtppassword string
+      Interval     int
 }
 
 
@@ -34,6 +35,7 @@ type Cron struct {
 }
 
 
+const Version string = "1.0.1"
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
 const confPath string = "/etc/gocron/config.yml"
@@ -60,7 +62,8 @@ func GetConfig(verbose bool) Config {
 
 
 // Return a Postgres connection string
-func DatabaseString(config Config) string {
+func DatabaseString(verbose bool) string {
+      var config Config = GetConfig(verbose)
       var connectionString string = "postgres://" +
             config.Dbuser + ":" +
             config.Dbpass + "@" +
@@ -72,8 +75,44 @@ func DatabaseString(config Config) string {
 }
 
 
+// Function returns true if query is successful
 func InsertDatabase(query string, verbose bool) bool {
+      db, err := sql.Open("postgres", DatabaseString(verbose))
+      if err != nil {
+            CheckError(err, verbose)
+      }
+      defer db.Close()
 
+      _, err = db.Query(query)
+      if err != nil {
+            CheckError(err, verbose)
+            return false
+      } else {
+            return true
+      }
+}
+
+
+// Function returns the result of a SELECT query
+func SelectDatabase(query string, verbose bool) (*sql.Rows, bool) {
+      var status bool // false if query is not successful
+
+      db, err := sql.Open("postgres", DatabaseString(verbose))
+      if err != nil {
+            CheckError(err, verbose)
+      }
+      defer db.Close()
+
+      rows, err := db.Query(query)
+      if err != nil {
+            CheckError(err, verbose)
+            status = false
+      } else {
+            status = true
+      }
+
+      // Return the query result and the status
+      return rows, status
 }
 
 
