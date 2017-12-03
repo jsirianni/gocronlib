@@ -50,7 +50,6 @@ func GetConfig(verbose bool) Config {
            os.Exit(1)
       }
 
-      // Set the global config var
       err = yaml.Unmarshal(yamlFile, &config)
       if err != nil {
             CheckError(err, verbose)
