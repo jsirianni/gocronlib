@@ -82,7 +82,6 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
       }
 
       rows, err = db.Query(query)
-      defer rows.Close()
       if err != nil {
             CheckError(err, verbose)
             status = false
