@@ -9,7 +9,7 @@ import (
 )
 
 
-const Version string  = "1.0.1"
+const Version string  = "1.0.2"
 
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
@@ -105,6 +105,35 @@ func SelectDatabase(query string, verbose bool) (*sql.Rows, bool) {
       }
 
       // Return the query result and the status
+      return rows, status
+}
+
+
+
+// Function handles database queries
+// Returns true on succes
+// TODO write a function that doesn't crash the fuckin database
+func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
+      var db *sql.DB
+      var err error
+      var status bool
+      var rows *sql.Rows
+
+      db, err = sql.Open("postgres", DatabaseString(verbose))
+      defer db.Close()
+      if err != nil {
+            CheckError(err, verbose)
+      }
+
+      rows, err = db.Query(query)
+      if err != nil {
+            CheckError(err, verbose)
+            status = false
+      } else {
+            status = true
+      }
+
+      // Return query result and status
       return rows, status
 }
 
