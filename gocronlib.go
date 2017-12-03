@@ -9,7 +9,7 @@ import (
 )
 
 
-const Version string  = "1.0.1"
+const Version string  = "1.0.3"
 
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
@@ -50,7 +50,6 @@ func GetConfig(verbose bool) Config {
            os.Exit(1)
       }
 
-      // Set the global config var
       err = yaml.Unmarshal(yamlFile, &config)
       if err != nil {
             CheckError(err, verbose)
@@ -68,35 +67,21 @@ func DatabaseString(verbose bool) string {
 }
 
 
-// Function returns true if query is successful
-func InsertDatabase(query string, verbose bool) bool {
-      db, err := sql.Open("postgres", DatabaseString(verbose))
-      if err != nil {
-            CheckError(err, verbose)
-      }
+// Function handles database queries
+// Returns false if bad query
+func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
+      var db *sql.DB
+      var err error
+      var status bool
+      var rows *sql.Rows
+
+      db, err = sql.Open("postgres", DatabaseString(verbose))
       defer db.Close()
-
-      _, err = db.Query(query)
-      if err != nil {
-            CheckError(err, verbose)
-            return false
-      } else {
-            return true
-      }
-}
-
-
-// Function returns the result of a SELECT query
-func SelectDatabase(query string, verbose bool) (*sql.Rows, bool) {
-      var status bool // false if query is not successful
-
-      db, err := sql.Open("postgres", DatabaseString(verbose))
       if err != nil {
             CheckError(err, verbose)
       }
-      defer db.Close()
 
-      rows, err := db.Query(query)
+      rows, err = db.Query(query)
       if err != nil {
             CheckError(err, verbose)
             status = false
@@ -104,7 +89,8 @@ func SelectDatabase(query string, verbose bool) (*sql.Rows, bool) {
             status = true
       }
 
-      // Return the query result and the status
+      // Return query result and status
+      db.Close()
       return rows, status
 }
 
