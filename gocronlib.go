@@ -38,7 +38,7 @@ type Cron struct {
       Frequency   string   // How often a job should check in
       Lastruntime string   // Unix timestamp
       Alerted     bool     // Set to true if an alert has already been thrown
-      Site        bool     // Set to true if service is a site (Example: Network gateway)
+      Site        int      // Set to 1 (true) if service is a site (Example: Network gateway)
 }
 
 
