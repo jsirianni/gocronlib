@@ -9,7 +9,7 @@ import (
 )
 
 
-const Version string  = "1.0.7"
+const Version string  = "1.0.8"
 
 const sslmode string  = "disable"   // Disable or enable ssl
 const syslog string   = "logger"    // Command to write to syslog
@@ -37,7 +37,8 @@ type Cron struct {
       Ipaddress   string   // Source IP address
       Frequency   string   // How often a job should check in
       Lastruntime string   // Unix timestamp
-      Alerted     bool     // set to true if an alert has already been thrown
+      Alerted     bool     // Set to true if an alert has already been thrown
+      Site        bool     // Set to true if service is a site (Example: Network gateway)
 }
 
 
