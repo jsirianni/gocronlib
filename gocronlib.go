@@ -10,7 +10,7 @@ import (
 )
 
 
-const Version string  = "2.0.1"
+const Version string  = "2.0.2"
 
 const (
       sslmode  string = "disable"   // Disable or enable ssl
