@@ -37,8 +37,8 @@ type Cron struct {
       Account     string   // Account the job belongs to
       Email       string   // Address to send alerts to
       Ipaddress   string   // Source IP address
-      Frequency   int      // How often a job should check in    // TODO Set to int
-      Lastruntime int      // Unix timestamp                     // TODO Set to int
+      Frequency   int      // How often a job should check in
+      Lastruntime int      // Unix timestamp                     
       Alerted     bool     // set to true if an alert has already been thrown
       Site        bool     // Set true if service is a site (Example: Network gateway)
 }
