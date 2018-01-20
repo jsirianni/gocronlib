@@ -71,10 +71,12 @@ func DatabaseString(verbose bool) string {
 // Function handles database queries
 // Returns false if bad query
 func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
-      var db *sql.DB
-      var rows *sql.Rows
-      var err error
-      var status bool
+      var (
+            db *sql.DB
+            rows *sql.Rows
+            err error
+            status bool
+      )
 
       db, err = sql.Open("postgres", DatabaseString(verbose))
       defer db.Close()
