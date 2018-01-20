@@ -39,6 +39,7 @@ type Cron struct {
       Frequency   int      // How often a job should check in    // TODO Set to int
       Lastruntime int      // Unix timestamp                     // TODO Set to int
       Alerted     bool     // set to true if an alert has already been thrown
+      Site        bool     // Set true if service is a site (Example: Network gateway)
 }
 
 
