@@ -10,7 +10,7 @@ import (
 )
 
 
-const Version string  = "2.0.1"
+const Version string  = "2.0.2"
 
 const (
       sslmode  string = "disable"   // Disable or enable ssl
@@ -104,6 +104,7 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
 func StringToInt(x string, verbose bool) int {
       y, err := strconv.Atoi(x)
       if err != nil {
+            CheckError(err, verbose)
             CronLog("Failed to convert int to string. Probably a bad GET.", verbose)
             return -1
 
