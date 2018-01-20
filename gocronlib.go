@@ -4,12 +4,13 @@ import (
       "io/ioutil"
       "fmt"
       "os/exec"
+      "strconv"
       "gopkg.in/yaml.v2"
       "database/sql"; _ "github.com/lib/pq";
 )
 
 
-const Version string  = "2.0.0"
+const Version string  = "2.0.1"
 
 const (
       sslmode  string = "disable"   // Disable or enable ssl
@@ -95,6 +96,20 @@ func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
 
       // Return query result and status
       return rows, status
+}
+
+
+// Convert a String to an int and return it
+// If -1 returns, validation will fail
+func StringToInt(x string, verbose bool) int {
+      y, err := strconv.Atoi(x)
+      if err != nil {
+            CronLog("Failed to convert int to string. Probably a bad GET.", verbose)
+            return -1
+
+      } else {
+            return y
+      }
 }
 
 
