@@ -50,7 +50,7 @@ Returns a postgres connection string
 Returns the result of a query and whether or not the query was successful
 
 ### StringToInt()
-Converts a String to an Integer. Returns -1 if the conversion fails.
+Converts a String to an Integer. Returns `-1` if the conversion fails.
 
 ### CronLog()
 Writes a message to syslog
