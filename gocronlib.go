@@ -9,12 +9,13 @@ import (
 )
 
 
-const Version string  = "1.0.8"
+const Version string  = "2.0.0"
 
-const sslmode string  = "disable"   // Disable or enable ssl
-const syslog string   = "logger"    // Command to write to syslog
-const confPath string = "/etc/gocron/config.yml"
-
+const (
+      sslmode  string = "disable"   // Disable or enable ssl
+      syslog   string = "logger"    // Command to write to syslog
+      confPath string = "/etc/gocron/config.yml"
+)
 
 type Config struct {
       Dbfqdn       string
@@ -35,9 +36,9 @@ type Cron struct {
       Account     string   // Account the job belongs to
       Email       string   // Address to send alerts to
       Ipaddress   string   // Source IP address
-      Frequency   string   // How often a job should check in
-      Lastruntime string   // Unix timestamp
-      Alerted     bool     // Set to true if an alert has already been thrown
+      Frequency   int      // How often a job should check in    // TODO Set to int
+      Lastruntime int      // Unix timestamp                     // TODO Set to int
+      Alerted     bool     // set to true if an alert has already been thrown
       Site        bool     // Set true if service is a site (Example: Network gateway)
 }
 
@@ -71,10 +72,12 @@ func DatabaseString(verbose bool) string {
 // Function handles database queries
 // Returns false if bad query
 func QueryDatabase(query string, verbose bool) (*sql.Rows, bool) {
-      var db *sql.DB
-      var rows *sql.Rows
-      var err error
-      var status bool
+      var (
+            db *sql.DB
+            rows *sql.Rows
+            err error
+            status bool
+      )
 
       db, err = sql.Open("postgres", DatabaseString(verbose))
       defer db.Close()
