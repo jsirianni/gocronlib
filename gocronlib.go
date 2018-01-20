@@ -9,12 +9,13 @@ import (
 )
 
 
-const Version string  = "1.0.7"
+const Version string  = "2.0.0"
 
-const sslmode string  = "disable"   // Disable or enable ssl
-const syslog string   = "logger"    // Command to write to syslog
-const confPath string = "/etc/gocron/config.yml"
-
+const (
+      sslmode  string = "disable"   // Disable or enable ssl
+      syslog   string = "logger"    // Command to write to syslog
+      confPath string = "/etc/gocron/config.yml"
+)
 
 type Config struct {
       Dbfqdn       string
@@ -35,8 +36,8 @@ type Cron struct {
       Account     string   // Account the job belongs to
       Email       string   // Address to send alerts to
       Ipaddress   string   // Source IP address
-      Frequency   string   // How often a job should check in
-      Lastruntime string   // Unix timestamp
+      Frequency   int      // How often a job should check in    // TODO Set to int
+      Lastruntime int      // Unix timestamp                     // TODO Set to int
       Alerted     bool     // set to true if an alert has already been thrown
 }
 
