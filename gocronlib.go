@@ -10,7 +10,7 @@ import (
 )
 
 
-const Version string  = "2.0.2"
+const Version string  = "2.0.3"
 
 const (
       sslmode  string = "disable"   // Disable or enable ssl
@@ -29,6 +29,9 @@ type Config struct {
       Smtpaddress  string
       Smtppassword string
       Interval     int
+      SlackHookUrl string
+      SlackChannel string
+      PreferSlack  bool
 }
 
 
@@ -38,7 +41,7 @@ type Cron struct {
       Email       string   // Address to send alerts to
       Ipaddress   string   // Source IP address
       Frequency   int      // How often a job should check in
-      Lastruntime int      // Unix timestamp                     
+      Lastruntime int      // Unix timestamp
       Alerted     bool     // set to true if an alert has already been thrown
       Site        bool     // Set true if service is a site (Example: Network gateway)
 }
