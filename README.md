@@ -1,3 +1,6 @@
+# DEPRICATED
+This library has been moved to the main package, https://github.com/jsirianni/gocron
+
 # gocronlib
 A library that supports common functions for the gocron service.
 https://github.com/jsirianni/gocron
