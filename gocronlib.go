@@ -19,19 +19,19 @@ const (
 )
 
 type Config struct {
-      Dbfqdn       string
-      Dbport       string
-      Dbuser       string
-      Dbpass       string
-      Dbdatabase   string
-      Smtpserver   string
-      Smtpport     string
-      Smtpaddress  string
-      Smtppassword string
-      Interval     int
-      SlackHookUrl string
-      SlackChannel string
-      PreferSlack  bool
+      Dbfqdn       string `yaml:"dbfqdn"`
+      Dbport       string `yaml:"dbport"`
+      Dbuser       string `yaml:"dbuser"`
+      Dbpass       string `yaml:"dbpass"`
+      Dbdatabase   string `yaml:"dbdatabase"`
+      Smtpserver   string `yaml:"smtpserver"`
+      Smtpport     string `yaml:"smtpport"`
+      Smtpaddress  string `yaml:"smtpaddress"`
+      Smtppassword string `yaml:"smtppassword"`
+      Interval     int    `yaml:"interval"`
+      SlackHookUrl string `yaml:"slackhookurl"`
+      SlackChannel string `yaml:"slackchannel"`
+      PreferSlack  bool   `yaml:"preferslack"`
 }
 
 
